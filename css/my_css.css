@@ -9,7 +9,7 @@ html {
 body {
 	width: 100%;
 	height: 100%;
-	background: #fff;
+	background: #404040	;
 	color: white;
 	padding: 0px;
 	font-family: 'Open Sans', sans-serif;
@@ -48,7 +48,7 @@ main header {
 }
 
 main header > h1 {
-	color: #464646;
+	color: whitesmoke;
 	font-weight: 800;
 	font-size: 5em;
 	letter-spacing: 4px;
@@ -58,7 +58,7 @@ main header > h1 {
 }
 
 main header > h1 > span {
-	color: #33a7ff;
+	color: whitesmoke;
 }
 
 main .menu {
@@ -85,7 +85,7 @@ main .menu li {
 main .menu li a,
 main .menu li a:active,
 main .menu li:visited {
-	color: #777;
+	color: #ffffff;
 	cursor: pointer;
 	font-weight: normal;
 	font-size: 1em;
@@ -96,7 +96,7 @@ main .menu li:visited {
 }
 
 main .menu li:hover > a {
-	color: #33a7ff;
+	color: #232B2B;
 }
 
 main .menu li:first-child {
@@ -108,7 +108,7 @@ main .menu li:hover:after {
 }
 
 main .menu li:after {
-	background: #33a7ff;
+	background: #232B2B;
 	bottom: -8px;
 	content: "";
 	display: block;
@@ -229,8 +229,8 @@ main .icon-list > li.stack:hover {
 }
 
 main .icon-list li > a,
-main .icon-list li > a: visited,
-main .icon-list li > a: active
+main .icon-list li > a visited,
+main .icon-list li > a active
 {
 	color: white;
 }
