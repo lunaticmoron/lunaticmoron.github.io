@@ -1,0 +1,356 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Spiral</title>
+		<meta name="author" content="Hakim El Hattab">
+        <meta name="viewport" content="width=device-width, user-scalable=no">
+        <style>#container {
+            position: relative;
+          }
+          #container canvas, #overlay {
+            position: absolute;
+          }
+          canvas {
+            border: 1px solid black;
+          }</style>
+          <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+          <link href='https://fonts.googleapis.com/css?family=Josefin+Sans' rel='stylesheet' type='text/css'>
+	</head>
+	<body>
+        <style type="text/css" media="screen">
+        html {
+  margin: 0;
+  height: 100%;
+}
+
+
+
+
+html::before,
+html::after,
+body::before,
+body::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: .5vmin;
+  height: .5vmin;
+  border-radius: 50%;
+  color: transparent;
+}
+
+
+
+
+h4 {
+  margin: 0;
+  height: 12vmin;
+  width: 80vmin;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+h4::before {
+  content: "";
+  display: none;
+  position: absolute;
+  z-index: -1;
+  top: -26vmin;
+  left: 29vmin;
+  width: 42vmin;
+  height: 62vmin;
+  border-radius: 50%;
+  border: 1.3vmin solid currentColor;
+  box-sizing: border-box;
+}
+
+em {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 10vmin;
+  color: currentColor;
+  position: relative;
+  font-style: normal;
+  width: 20vmin;
+  text-align: center;
+}
+
+em.planet {
+  -webkit-animation: planet-rotate 4s linear infinite;
+  animation: planet-rotate 4s linear infinite;
+  position: relative;
+}
+
+em.planet::before {
+  content: "";
+  position: absolute;
+  top: -.5vmin;
+  left: 3.5vmin;
+  z-index: -1;
+  width: 13vmin;
+  height: 13vmin;
+  border-radius: 50%;
+}
+
+em.planet.left {
+  -webkit-transform-origin: 40vmin 5vmin;
+  transform-origin: 40vmin 5vmin;
+}
+
+em.planet.right {
+  -webkit-transform-origin: -20vmin 5vmin;
+  transform-origin: -20vmin 5vmin;
+}
+
+@-webkit-keyframes planet-rotate {
+  to {
+    -webkit-transform: rotate(1turn);
+  }
+}
+
+@keyframes planet-rotate {
+  to {
+    transform: rotate(1turn);
+  }
+}
+			body {
+				padding: 0;
+				margin: 0;
+				font-family: Helvetica, sans-serif;
+
+				display: flex;
+				height: 100vh;
+				background-color: #111;
+			}
+
+			canvas {
+				margin: auto;
+			}
+
+			span {
+				color: #777;
+				position: absolute;
+				top: 20px;
+				left: 20px;
+				user-select: none;
+			}
+            .center {
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+		</style>
+
+<div class="container_div row" style="position:relative;">
+    <div class="hover_div col-12 offset-2 row" style="position:absolute;">         
+        <div class="row" style="position:absolute; padding-top: 16%;padding-left: 24%">                   
+                <img style=" position: absolute; width: 80% ;height: 100%;" src="img/plinth-round.png ">
+            </div>
+                <div class="row" style="position: absolute; color: white; padding-top: 32%; padding-left: 14%">
+                        <h4 style="position: absolute; font-size: 20px !important">
+                                <em>C</em>
+                                <em class="planet left">O</em>
+                                <em >M</em>
+                                <em>I</em>
+                                <em>N</em>
+                                <em>G</em>
+                                <em>&nbsp;</em>
+                                <em >S</em>
+                                <em class="planet right">O</em>
+                                <em>O</em>
+                                <em>N</em>
+                              </h4>
+                                              </div>
+    </div>
+<canvas width="180" height="270" ></canvas>
+</div>
+
+		<script>
+			var canvas = document.querySelector( 'canvas' );
+			var context = canvas.getContext( '2d' );
+
+			var time = 0,
+				velocity = 0.1,
+				velocityTarget = 0.1,
+				width,
+				height,
+				lastX,
+				lastY;
+
+			var MAX_OFFSET = 400;
+			var SPACING = 4;
+			var POINTS = MAX_OFFSET / SPACING;
+			var PEAK = MAX_OFFSET * 0.25;
+			var POINTS_PER_LAP = 6;
+			var SHADOW_STRENGTH = 6;
+
+			setup();
+
+			function setup() {
+
+				resize();
+				step();
+
+				window.addEventListener( 'resize', resize );
+				window.addEventListener( 'mousedown', onMouseDown );
+				document.addEventListener( 'touchstart', onTouchStart );
+
+			}
+
+			function resize() {
+
+				width = canvas.width = window.innerWidth;
+				height = canvas.height = window.innerHeight;
+
+			}
+
+			function step() {
+
+				time += velocity;
+				velocity += ( velocityTarget - velocity ) * 0.3;
+
+				clear();
+				render();
+
+				requestAnimationFrame( step );
+
+			}
+
+			function clear() {
+
+				context.clearRect( 0, 0, width, height );
+
+			}
+
+			function render() {
+
+				var x, y,
+					cx = width/2,
+					cy = height/2;
+
+				context.globalCompositeOperation = 'lighter';
+				context.strokeStyle = '#fff';
+				context.shadowColor = '#fff';
+				context.lineWidth = 2;
+				context.beginPath();
+
+				for( var i = POINTS; i > 0; i -- ) {
+
+					var value = i * SPACING + ( time % SPACING );
+
+					var ax = Math.sin( value/POINTS_PER_LAP ) * Math.PI,
+						ay = Math.cos( value/POINTS_PER_LAP ) * Math.PI;
+
+					x = ax * value,
+					y = ay * value * 0.35;
+
+					var o = 1 - ( Math.min( value, PEAK ) / PEAK );
+
+					y -= Math.pow( o, 2 ) * 200;
+					y += 200 * value / MAX_OFFSET;
+					y += x / cx * width * 0.1;
+
+					context.globalAlpha = 1 - ( value / MAX_OFFSET );
+					context.shadowBlur = SHADOW_STRENGTH * o;
+
+					context.lineTo( cx + x, cy + y );
+					context.stroke();
+
+					context.beginPath();
+					context.moveTo( cx + x, cy + y );
+
+				}
+
+				context.lineTo( cx, cy - 200 );
+				context.lineTo( cx, 0 );
+				context.stroke();
+
+			}
+
+			function onMouseDown( event ) {
+
+				lastX = event.clientX;
+				lastY = event.clientY;
+
+				document.addEventListener( 'mousemove', onMouseMove );
+				document.addEventListener( 'mouseup', onMouseUp );
+
+			}
+
+			function onMouseMove( event ) {
+
+				var vx = ( event.clientX - lastX ) / 100;
+				var vy = ( event.clientY - lastY ) / 100;
+
+				if( event.clientY < height/2 ) vx *= -1;
+				if( event.clientX > width/2 ) vy *= -1;
+
+				velocityTarget = vx + vy;
+
+				lastX = event.clientX;
+				lastY = event.clientY;
+
+			}
+
+			function onMouseUp( event ) {
+
+				document.removeEventListener( 'mousemove', onMouseMove );
+				document.removeEventListener( 'mouseup', onMouseUp );
+
+			}
+
+			function onTouchStart( event ) {
+
+				event.preventDefault();
+
+				lastX = event.touches[0].clientX;
+				lastY = event.touches[0].clientY;
+
+				document.addEventListener( 'touchmove', onTouchMove );
+				document.addEventListener( 'touchend', onTouchEnd );
+
+			}
+
+			function onTouchMove( event ) {
+
+				var vx = ( event.touches[0].clientX - lastX ) / 100;
+				var vy = ( event.touches[0].clientY - lastY ) / 100;
+
+				if( event.touches[0].clientY < height/2 ) vx *= -1;
+				if( event.touches[0].clientX > width/2 ) vy *= -1;
+
+				velocityTarget = vx + vy;
+
+				lastX = event.touches[0].clientX;
+				lastY = event.touches[0].clientY;
+
+			}
+
+			function onTouchEnd( event ) {
+
+				document.removeEventListener( 'touchmove', onTouchMove );
+				document.removeEventListener( 'touchend', onTouchEnd );
+
+			}
+		</script>
+
+		<script>
+			var _gaq = [['_setAccount', 'UA-15240703-1'], ['_trackPageview']];
+			(function(d, t) {
+			var g = d.createElement(t),
+			    s = d.getElementsByTagName(t)[0];
+			g.async = true;
+			g.src = ('https:' == location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			s.parentNode.insertBefore(g, s);
+			})(document, 'script');
+		</script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+	</body>
+</html>
