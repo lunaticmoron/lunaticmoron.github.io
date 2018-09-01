@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+
+		<meta charset="utf-8">
+
+		<meta name="description" content="" />
+		<meta name="author" content="Hakim El Hattab" />
+
+		<meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="viewport" content="width=device-width">
+
+		<title>Linjer - An HTML canvas experiment</title>
+
+		<link href="https://lab.hakim.se/linjer/css/reset.css" rel="stylesheet" media="screen" />
+		<link href="https://lab.hakim.se/linjer/css/main.css" rel="stylesheet" media="screen" />
+
+		<link href='https://fonts.googleapis.com/css?family=Molengo' rel='stylesheet' type='text/css'>
+
+	</head>
+	<body>
+
+		<div class="main-container">
+
+			<div id="wrapper" class="empty">
+				<span class="instructions">
+					<em>Click and drag</em> to add nodes.&nbsp; <em>Space</em> to reset.&nbsp; Reduce the browser window size if it's slow.&nbsp; <em>Style</em>:
+					<select class="styles">
+						<option value="diagonal">Diagonal</option>
+						<option value="circle">Circle</option>
+						<option value="grid">Grid</option>
+						<option value="cross">Cross</option>
+						<option value="none">None</option>
+					</select>
+				</span>
+			</div>
+            <div  style="position: fixed;text-align: center ">
+                <div class="row">
+                    <div style="padding-top: 25vh;padding-left: 70vh">
+                        <img src="img/plinth-round.png">
+                    </div>
+                    </div>
+                    <div class="row" style="padding-left: 70vh">
+                        <h1 style="font-size: 80px">Coming Soon</h1>
+                    </div>
+                <canvas width="180" height="270" style="width: 0; height: 0;"></canvas>
+                </div>		</div>
+		<script src="https://lab.hakim.se/linjer/js/libs/sketch.min.js"></script>
+		<script src="https://lab.hakim.se/linjer/js/util.js"></script>
+		<script src="linjer.js"></script>
+
+		<!-- Third party tracking and sharing code below -->
+
+		<script type="text/javascript">
+		var _gaq = _gaq || [];
+			_gaq.push(['_setAccount', 'UA-15240703-1']);
+			_gaq.push(['_trackPageview']);
+
+			(function() {
+				var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+				ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+				var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+		</script>
+
+	</body>
+</html>
