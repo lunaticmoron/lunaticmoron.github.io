@@ -21,28 +21,6 @@
 	</head>
 	<body>
         <style type="text/css" media="screen">
-        html {
-  margin: 0;
-  height: 100%;
-}
-
-
-
-
-html::before,
-html::after,
-body::before,
-body::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: block;
-  width: .5vmin;
-  height: .5vmin;
-  border-radius: 50%;
-  color: transparent;
-}
 
 
 
@@ -53,7 +31,7 @@ h4 {
   width: 80vmin;
   display: flex;
   justify-content: center;
-  position: relative;
+  position: absolute;
 }
 
 h4::before {
@@ -119,7 +97,6 @@ em.planet.right {
   }
 }
 			body {
-				padding: 0;
 				margin: 0;
 				font-family: Helvetica, sans-serif;
 
@@ -141,17 +118,15 @@ em.planet.right {
 			}
             .center {
     margin-left: auto;
-    margin-right: auto;
-    width: 50%;
 }
 		</style>
 
 <div class="container_div row" style="position:relative;">
-    <div class="hover_div col-12 offset-2 row" style="position:absolute;">         
-        <div class="row" style="position:absolute; padding-top: 16%;padding-left: 24%">                   
-                <img style=" position: absolute; width: 80% ;height: 100%;" src="img/plinth-round.png ">
+    <div class="hover_div col-12 row" style="position:absolute;">         
+        <div class="row" style="position:absolute; padding-top: 16%;padding-left: 41%">                   
+                <img style=" position: absolute; width: 60% ;height: 100%;" src="img/plinth-round.png ">
             </div>
-                <div class="row" style="position: absolute; color: white; padding-top: 32%; padding-left: 14%">
+                <div class="row" style="position: absolute; color: white; padding-top: 32%; padding-left: 32%">
                         <h4 style="position: absolute; font-size: 20px !important">
                                 <em>C</em>
                                 <em class="planet left">O</em>
